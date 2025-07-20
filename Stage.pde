@@ -33,4 +33,8 @@ abstract class Stage {
       activeRings.add(ringQueue.remove(0));
     }
   }
+
+  int getRemainingRings() {
+    return ringQueue.size() + activeRings.size();
+  }
 }

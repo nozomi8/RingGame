@@ -1,7 +1,7 @@
 class Player {
-  float x = 0, y = 0;
+  float x = 0, y = 0; 
   float radius = 20;
-  float speed = 8.0;
+  float speed = 5.0;    
 
   void update() {}
 

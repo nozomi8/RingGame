@@ -1,10 +1,13 @@
 class Strawberry extends Player {
   PImage playerImage;
+
+  // コンストラクタは画像だけを受け取る
   Strawberry(PImage img) {
-    super();
+    super(); // 親クラスの初期設定を呼び出す
     this.radius = 18;
-    this.playerImage = img; 
+    this.playerImage = img;
   }
+  
   @Override
   void display() {
     pushMatrix();

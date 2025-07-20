@@ -1,4 +1,3 @@
-// UI.pde の中身
 class UI {
   PFont scoreFont;
   PFont messageFont;
@@ -8,18 +7,17 @@ class UI {
     messageFont = createFont("Arial", 32);
   }
 
-  // ゲームプレイ中の情報表示 (HUD)
-  void displayHUD(int stageNum, int successCount, int missCount, int maxMiss) {
+  void displayHUD(int stageNum, int successCount, int currentLives, int maxLives) { // maxMissをmaxLivesに変更
     hint(DISABLE_DEPTH_TEST);
-    camera(); // 2D描画モードに切り替え
-    
+    camera(); 
+
     textFont(scoreFont);
     fill(255);
     textAlign(LEFT, TOP);
     text("Stage: " + stageNum, 10, 10);
     text("Success: " + successCount, 10, 40);
-    text("Miss: " + missCount + " / " + maxMiss, 10, 70);
-    
+    text("Lives: " + currentLives + " / " + maxLives, 10, 70);
+
     hint(ENABLE_DEPTH_TEST);
   }
 
