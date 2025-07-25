@@ -26,3 +26,11 @@ void draw() {
 void mousePressed() {
   gameManager.handleMouseInput(mouseX, mouseY);
 }
+
+void keyPressed() {
+  gameManager.handleKeyPressed();
+}
+
+void keyReleased() {
+  gameManager.handleKeyReleased();
+}

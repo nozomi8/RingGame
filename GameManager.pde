@@ -15,6 +15,11 @@ class GameManager {
   int missCount    = 0;
   int maxMiss      = 3;
 
+  boolean keyUp = false;
+  boolean keyDown = false;
+  boolean keyLeft = false;
+  boolean keyRight = false;
+
   // ===== コンストラクタ（初期設定） =====
   GameManager() {
     ui = new UI();
@@ -117,6 +122,10 @@ class GameManager {
       if(row==0)dirY=-1;else if(row==2)dirY=1;
       player.move(dirX, dirY);
     }
+    if (keyUp)    player.move(0, -1);
+    if (keyDown)  player.move(0, 1);
+    if (keyLeft)  player.move(-1, 0);
+    if (keyRight) player.move(1, 0);
   }
 
   void checkCollisions() {
@@ -147,5 +156,19 @@ class GameManager {
     if (missCount >= maxMiss) {
       currentGameState = GameState.GAME_OVER;
     }
+  }
+  // GameManager.pde の中にこれらのメソッドを追加
+  void handleKeyPressed() {
+    if (keyCode == UP)    keyUp = true;
+    if (keyCode == DOWN)  keyDown = true;
+    if (keyCode == LEFT)  keyLeft = true;
+    if (keyCode == RIGHT) keyRight = true;
+  }
+
+  void handleKeyReleased() {
+    if (keyCode == UP)    keyUp = false;
+    if (keyCode == DOWN)  keyDown = false;
+    if (keyCode == LEFT)  keyLeft = false;
+    if (keyCode == RIGHT) keyRight = false;
   }
 }
