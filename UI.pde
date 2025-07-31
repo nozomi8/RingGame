@@ -56,20 +56,6 @@ void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PIma
     text("Apple", width/2, height/2 + 20);
     text("Melon", width/2, height/2 + 70);
   }
-  
-  void displayGameOver() {
-    camera(); 
-    fill(0, 150);
-    rect(0, 0, width, height);
-    textFont(messageFont);
-    fill(255, 0, 0);
-    textAlign(CENTER, CENTER);
-    text("GAME OVER", width / 2, height / 2 - 50);
-    fill(255);
-    textSize(24);
-    text("Retry", width/2, height/2 + 20);
-    text("Return to Title", width/2, height/2 + 70);
-  }
 
   void displayStageClear() {
     long elapsedTime = millis() - gameManager.clearScreenStartTime;
@@ -137,5 +123,34 @@ void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PIma
     textSize(24);
     text("Stage 1", width / 2, height / 2 - 30);
     text("Stage 2", width / 2, height / 2 + 20);
+  }
+  
+  void displayGameOver() {
+    // GameManagerに gameOverStartTime を追加する必要があります
+    long elapsedTime = millis() - gameManager.gameOverStartTime;
+    float animDuration = 400; // 0.4秒かけてアニメーション
+
+    camera();
+    fill(0, 150);
+    rect(0, 0, width, height);
+
+    //  GAME OVER テキストのアニメーション 
+    float startY = -50; // 画面の上外から
+    float endY = height / 2 - 50;
+    // lerpを使って滑らかに移動させる
+    float currentY = lerp(startY, endY, min(elapsedTime / animDuration, 1.0));
+
+    textFont(messageFont);
+    fill(255, 0, 0);
+    textAlign(CENTER, CENTER);
+    text("GAME OVER", width / 2, currentY); //  計算したY座標を適用
+
+    //  ボタンはアニメーションが終わってから表示 
+    if (elapsedTime > animDuration + 200) { // 少し間を置いて表示
+      fill(255);
+      textSize(24);
+      text("Retry", width/2, height/2 + 20);
+      text("Return to Title", width/2, height/2 + 70);
+    }
   }
 }
