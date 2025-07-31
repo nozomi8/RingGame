@@ -16,6 +16,8 @@ class GameManager {
   int missCount    = 0;
   int maxMiss      = 3;
 
+  float shakeIntensity = 0; // 揺れの強さ
+
   boolean keyUp = false;
   boolean keyDown = false;
   boolean keyLeft = false;
@@ -137,8 +139,10 @@ class GameManager {
       if (r.isPassedByPlayer(player)) {
         successCount++;
         r.isSuccess = true; 
+        r.isFadingOut = true; // アニメーション開始
       } else {
         missCount++;
+        shakeIntensity = 15.0; // ミス時に揺れをセット
       }
       r.isCounted = true;
     }
@@ -146,7 +150,15 @@ class GameManager {
 }
 
   void drawGameScene() {
-    camera(width/2, height/2, 800, width/2, height/2, 0, 0, 1, 0);
+    float shakeX = 0, shakeY = 0;
+    if (shakeIntensity > 0) {
+      shakeX = random(-shakeIntensity, shakeIntensity);
+      shakeY = random(-shakeIntensity, shakeIntensity);
+      shakeIntensity *= 0.9; // 揺れをだんだん弱くする
+    }
+    camera(width/2 + shakeX, height/2 + shakeY, 800,
+         width/2 + shakeX, height/2 + shakeY, 0,
+         0, 1, 0);
     currentStage.display();
     if(player != null) player.display();
     if(ui != null) {
