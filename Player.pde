@@ -1,7 +1,10 @@
 class Player {
   float x = 0, y = 0; 
   float radius = 20;
-  float speed = 5.0;    
+  float speed = 5.0;
+  float imageWidth = 60;
+  float imageHeight = 60;
+  PImage playerImage;
 
   void update() {}
 
