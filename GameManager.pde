@@ -8,6 +8,7 @@ class GameManager {
   Stage  currentStage;
   UI     ui;
   PImage strawberryImg, appleImg, melonImg;
+  PImage heartImg;
   
   // ===== ゲームのデータ =====
   int stageNumber  = 1;
@@ -27,6 +28,7 @@ class GameManager {
     strawberryImg = loadImage("strawberry.png");
     appleImg      = loadImage("apple.png");
     melonImg      = loadImage("melon.png");
+    heartImg = loadImage("heart.png"); 
     
     currentGameState = GameState.TITLE;
   }
@@ -145,7 +147,7 @@ class GameManager {
     if(player != null) player.display();
     if(ui != null) {
       ui.displayControlGuides();
-      ui.displayHUD(stageNumber, successCount, missCount, maxMiss);
+      ui.displayHUD(stageNumber, successCount, missCount, maxMiss, heartImg);
     }
   }
 

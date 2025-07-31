@@ -7,20 +7,29 @@ class UI {
     messageFont = createFont("Arial", 32);
   }
 
-  void displayHUD(int stageNum, int successCount, int currentLives, int maxLives) { // maxMissをmaxLivesに変更
-    hint(DISABLE_DEPTH_TEST);
-    camera(); 
+void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PImage heartIcon) {
+  hint(DISABLE_DEPTH_TEST);
+  camera();
 
-    textFont(scoreFont);
-    fill(255);
-    textAlign(LEFT, TOP);
-    text("Stage: " + stageNum, 10, 10);
-    text("Success: " + successCount, 10, 40);
-    text("Lives: " + currentLives + " / " + maxLives, 10, 70);
+  textFont(scoreFont);
+  fill(255);
+  textAlign(LEFT, TOP);
+  text("Success: " + successCount, 10, 40);
 
-    hint(ENABLE_DEPTH_TEST);
+  textSize(36);
+  fill(255, 255, 0);
+  textAlign(CENTER, TOP);
+  text("Stage: " + stageNum, width / 2, 10);
+
+  if (heartIcon != null) {
+    int remainingLives = maxMiss - missCount; 
+    for (int i = 0; i < remainingLives; i++) {
+      image(heartIcon, 10 + (i * 35), 70, 32, 32);
+    }
   }
-
+  
+  hint(ENABLE_DEPTH_TEST);
+}
   // --- 各ゲーム画面の描画 ---
 
   void displayTitleScreen() {
