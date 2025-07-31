@@ -23,19 +23,20 @@ class GameManager {
   boolean keyLeft = false;
   boolean keyRight = false;
 
+  ArrayList<Particle> particles; // パーティクルを管理するリスト
+
   // ===== コンストラクタ（初期設定） =====
   GameManager() {
     ui = new UI();
-    
     strawberryImg = loadImage("strawberry.png");
     appleImg      = loadImage("apple.png");
     melonImg      = loadImage("melon.png");
     heartImg = loadImage("heart.png"); 
-    
     currentGameState = GameState.TITLE;
+    particles = new ArrayList<Particle>();
   }
 
-  // ===== メインの更新・描画メソッド =====
+  // メインの更新・描画メソッド
   void update() {
     if (currentGameState == GameState.PLAYING) {
       handlePlayerInput();
@@ -43,6 +44,13 @@ class GameManager {
       if (player != null) player.update();
       checkCollisions();
       checkEndStage();
+      for (int i = particles.size() - 1; i >= 0; i--) {
+        Particle p = particles.get(i);
+        p.update();
+        if (p.isDead()) {
+          particles.remove(i);
+        }
+      }
     }
   }
 
@@ -140,6 +148,9 @@ class GameManager {
         successCount++;
         r.isSuccess = true; 
         r.isFadingOut = true; // アニメーション開始
+        for (int i = 0; i < 50; i++) {
+          particles.add(new Particle(new PVector(player.x, player.y)));
+        }
       } else {
         missCount++;
         shakeIntensity = 15.0; // ミス時に揺れをセット
@@ -147,7 +158,7 @@ class GameManager {
       r.isCounted = true;
     }
   }
-}
+  }
 
   void drawGameScene() {
     float shakeX = 0, shakeY = 0;
@@ -165,6 +176,12 @@ class GameManager {
       ui.displayControlGuides();
       ui.displayHUD(stageNumber, successCount, missCount, maxMiss, heartImg);
     }
+    pushMatrix();
+    translate(width/2, height/2); // パーティクルの座標系を画面中央に合わせる
+    for (Particle p : particles) {
+      p.display();
+    }
+    popMatrix();
   }
 
   void checkEndStage() {
