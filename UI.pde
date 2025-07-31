@@ -30,7 +30,7 @@ void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PIma
   
   hint(ENABLE_DEPTH_TEST);
 }
-  // --- 各ゲーム画面の描画 ---
+  //  各ゲーム画面の描画 
 
   void displayTitleScreen() {
     camera(); // 2D描画
@@ -72,17 +72,29 @@ void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PIma
   }
 
   void displayStageClear() {
+    long elapsedTime = millis() - gameManager.clearScreenStartTime;
+    float animDuration = 500; // 0.5秒かけてアニメーション
+    // 時間経過で文字サイズを計算 (1.0倍から2.0倍に拡大)
+    float sizeScale = map(elapsedTime, 0, animDuration, 1.0, 2.0);
+    sizeScale = constrain(sizeScale, 1.0, 2.0); // 最大サイズを超えないように
+    camera();
+    fill(0, 150);
+    rect(0, 0, width, height);
     textFont(messageFont);
+    textSize(messageFont.getSize() * sizeScale); // 計算したサイズを適用
     fill(0, 255, 0);
     textAlign(CENTER, CENTER);
     text("STAGE CLEAR!", width / 2, height / 2 - 50);
-    fill(255);
-    textSize(24);
-    text("Next Stage", width / 2, height / 2 + 20);
-    text("Return to Title", width / 2, height / 2 + 70);
+    // ボタンはアニメーションが終わってから表示
+    if (elapsedTime > animDuration) {
+      textSize(24);
+      fill(255);
+      text("Next Stage", width / 2, height / 2 + 20);
+      text("Return to Title", width / 2, height / 2 + 70);
+    }
   }
 
-  // --- 3D空間に描画するガイド ---
+  //  3D空間に描画するガイド 
   void displayControlGuides() {
     strokeWeight(1);
     stroke(255, 50);

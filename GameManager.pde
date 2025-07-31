@@ -1,31 +1,23 @@
-// GameManager.pde の中身
 class GameManager {
-  // ===== ゲームの状態 =====
   GameState currentGameState;
-
-  // ===== ゲームの構成要素 =====
   Player player;
   Stage  currentStage;
   UI     ui;
   PImage strawberryImg, appleImg, melonImg;
   PImage heartImg;
-  
-  // ===== ゲームのデータ =====
   int stageNumber  = 1;
   int successCount = 0;
   int missCount    = 0;
   int maxMiss      = 3;
-
   float shakeIntensity = 0; // 揺れの強さ
-
   boolean keyUp = false;
   boolean keyDown = false;
   boolean keyLeft = false;
   boolean keyRight = false;
-
   ArrayList<Particle> particles; // パーティクルを管理するリスト
+  long clearScreenStartTime = 0; 
 
-  // ===== コンストラクタ（初期設定） =====
+  //コンストラクタ（初期設定） 
   GameManager() {
     ui = new UI();
     strawberryImg = loadImage("strawberry.png");
@@ -40,8 +32,12 @@ class GameManager {
   void update() {
     if (currentGameState == GameState.PLAYING) {
       handlePlayerInput();
-      if (currentStage != null) currentStage.update();
-      if (player != null) player.update();
+      if (currentStage != null) {
+        currentStage.update();
+      }
+      if (player != null) {
+        player.update();
+      } 
       checkCollisions();
       checkEndStage();
       for (int i = particles.size() - 1; i >= 0; i--) {
@@ -79,7 +75,7 @@ class GameManager {
     }
   }
   
-  // ===== マウス入力処理 =====
+  // マウス入力処理 
   void handleMouseInput(int mx, int my) {
     switch (currentGameState) {
       case TITLE:
@@ -108,7 +104,7 @@ class GameManager {
     }
   }
 
-  // ===== ヘルパーメソッド群 =====
+  //  ヘルパーメソッド群 
   void startGame(String playerType, int startStage) {
     if (playerType.equals("Strawberry")) player = new Strawberry(strawberryImg);
     else if (playerType.equals("Apple"))  player = new Apple(appleImg);
@@ -186,13 +182,20 @@ class GameManager {
 
   void checkEndStage() {
     if (currentStage != null && currentStage.getRemainingRings() == 0 && successCount > 0) {
+      if (currentGameState != GameState.STAGE_CLEAR) {
+        for (int i = 0; i < 200; i++) {
+          float randomX = random(-width/2, width/2);
+          float randomY = random(-height/2, height/2);
+          particles.add(new Particle(new PVector(randomX, randomY)));
+        }
+      }
       currentGameState = GameState.STAGE_CLEAR;
     }
     if (missCount >= maxMiss) {
       currentGameState = GameState.GAME_OVER;
     }
   }
-  // GameManager.pde の中にこれらのメソッドを追加
+  
   void handleKeyPressed() {
     if (keyCode == UP)    keyUp = true;
     if (keyCode == DOWN)  keyDown = true;
