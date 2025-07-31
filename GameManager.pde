@@ -131,15 +131,19 @@ class GameManager {
   }
 
   void checkCollisions() {
-    if (currentStage == null) return;
-    for (Ring r : currentStage.activeRings) {
-      if (!r.isCounted && r.z >= 0) {
-        if (r.isPassedByPlayer(player)) successCount++;
-        else                            missCount++;
-        r.isCounted = true;
+  if (currentStage == null) return;
+  for (Ring r : currentStage.activeRings) {
+    if (!r.isCounted && r.z >= 0) {
+      if (r.isPassedByPlayer(player)) {
+        successCount++;
+        r.isSuccess = true; 
+      } else {
+        missCount++;
       }
+      r.isCounted = true;
     }
   }
+}
 
   void drawGameScene() {
     camera(width/2, height/2, 800, width/2, height/2, 0, 0, 1, 0);

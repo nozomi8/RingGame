@@ -4,6 +4,7 @@ class Ring {
   float outerRadius, innerRadius;
   float thickness;
   boolean isCounted = false;
+  boolean isSuccess = false;
 
   Ring(float ringX, float ringY, float ringZ, float outerR, float innerR) {
     this.x = ringX;
@@ -30,7 +31,11 @@ class Ring {
     translate(width/2 + x, height/2 + y, z);
     noFill();
     strokeWeight(thickness);
-    stroke(255, 215, 0);
+     if (isSuccess) {
+      stroke(0, 255, 0);
+    } else {
+      stroke(255, 215, 0); 
+    }
     ellipse(0, 0, outerRadius * 2, outerRadius * 2);
     popMatrix();
   }
