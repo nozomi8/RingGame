@@ -24,7 +24,7 @@ void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PIma
   if (heartIcon != null) {
     int remainingLives = maxMiss - missCount; 
     for (int i = 0; i < remainingLives; i++) {
-      image(heartIcon, 10 + (i * 35), 70, 32, 32);
+      image(heartIcon, 20 + (i * 35), 30, 32, 32);
     }
   }
   
