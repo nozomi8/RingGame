@@ -1,15 +1,14 @@
 class Apple extends Player {
   PImage playerImage;
 
-  // コンストラクタは画像だけを受け取る
   Apple(PImage img) {
     super();
-    this.radius = 22; // Appleのサイズ
+    this.radius = 22; 
     this.playerImage = img;
   }
 
   @Override
-    void display() {
+  void display() {
     if (playerImage != null) {
       pushMatrix();
       // プレイヤーの現在位置に座標系を移動

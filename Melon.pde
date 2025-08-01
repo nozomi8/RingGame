@@ -1,15 +1,12 @@
 class Melon extends Player {
-
-
-  // コンストラクタは画像だけを受け取る
   Melon(PImage img) {
     super();
-    this.radius = 28; // Melonのサイズ
+    this.radius = 28;
     this.playerImage = img;
   }
 
   @Override
-    void display() {
+  void display() {
     if (playerImage != null) {
       pushMatrix();
       // プレイヤーの現在位置に座標系を移動

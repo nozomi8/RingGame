@@ -1,14 +1,12 @@
 class Strawberry extends Player {
   PImage playerImage;
-
-  // コンストラクタは画像だけを受け取る
   Strawberry(PImage img) {
-    super(); // 親クラスの初期設定を呼び出す
+    super(); 
     this.radius = 18;
     this.playerImage = img;
   }
 
-    void display() {
+  void display() {
     if (playerImage != null) {
       pushMatrix();
       // プレイヤーの現在位置に座標系を移動

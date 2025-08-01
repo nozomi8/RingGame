@@ -1,37 +1,37 @@
 class UI {
   PFont scoreFont;
   PFont messageFont;
-
+  
   UI() {
     scoreFont = createFont("Arial", 24);
     messageFont = createFont("Arial", 32);
   }
-
-void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PImage heartIcon) {
-  hint(DISABLE_DEPTH_TEST);
-  camera();
-
-  textFont(scoreFont);
-  fill(255);
-  textAlign(LEFT, TOP);
-  text("Success: " + successCount, 10, 40);
-
-  textSize(36);
-  fill(255, 255, 0);
-  textAlign(CENTER, TOP);
-  text("Stage: " + stageNum, width / 2, 10);
-
-  if (heartIcon != null) {
-    int remainingLives = maxMiss - missCount; 
-    for (int i = 0; i < remainingLives; i++) {
-      image(heartIcon, 20 + (i * 35), 30, 32, 32);
-    }
-  }
   
-  hint(ENABLE_DEPTH_TEST);
-}
-  //  各ゲーム画面の描画 
-
+  void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PImage heartIcon) {
+    hint(DISABLE_DEPTH_TEST);
+    camera();
+    
+    textFont(scoreFont);
+    fill(255);
+    textAlign(LEFT, TOP);
+    text("Success: " + successCount, 10, 40);
+    
+    textSize(36);
+    fill(255, 255, 0);
+    textAlign(CENTER, TOP);
+    text("Stage: " + stageNum, width / 2, 10);
+    
+    if(heartIcon != null) {
+      int remainingLives = maxMiss - missCount; 
+      for (int i = 0; i < remainingLives; i++) {
+        image(heartIcon, 20 + (i * 35), 30, 32, 32);
+      }
+    }
+    
+    hint(ENABLE_DEPTH_TEST);
+  }
+    //各ゲーム画面の描画 
+    
   void displayTitleScreen() {
     camera(); // 2D描画
     background(50, 80, 150);
@@ -43,20 +43,20 @@ void displayHUD(int stageNum, int successCount, int missCount, int maxMiss, PIma
     text("Start Game", width / 2, height / 2 + 20);
     text("Stage Select", width / 2, height / 2 + 70);
   }
-
+    
   void displayPlayerSelectScreen() {
     camera();
-    background(50, 80, 150);
-    textFont(messageFont);
-    fill(255);
-    textAlign(CENTER, CENTER);
-    text("Select Player", width/2, height/2 - 100);
-    textSize(24);
-    text("Strawberry", width/2, height/2 - 30);
-    text("Apple", width/2, height/2 + 20);
-    text("Melon", width/2, height/2 + 70);
-  }
-
+      background(50, 80, 150);
+      textFont(messageFont);
+      fill(255);
+      textAlign(CENTER, CENTER);
+      text("Select Player", width / 2, height / 2 - 100);
+      textSize(24);
+      text("Strawberry", width / 2, height / 2 - 30);
+      text("Apple", width / 2, height / 2 + 20);
+      text("Melon", width / 2, height / 2 + 70);
+    }
+    
   void displayStageClear() {
     long elapsedTime = millis() - gameManager.clearScreenStartTime;
     float animDuration = 500; // 0.5秒かけてアニメーション

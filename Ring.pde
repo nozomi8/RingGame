@@ -53,6 +53,6 @@ class Ring {
   }
   boolean isPassedByPlayer(Player p) {
     float d = dist(this.x, this.y, p.x, p.y);
-    return d < this.innerRadius;
+    return d + p.radius < this.innerRadius;
   }
 }
