@@ -234,11 +234,15 @@ class GameManager {
   }
 
   void checkEndStage() {
-    if (currentStage != null && currentStage.getRemainingRings() == 0 && successCount > 0) {
+    if (successCount >= 10) {
+      // 既にクリア画面に遷移済みでなければ、処理を行う
       if (currentGameState != GameState.STAGE_CLEAR) {
         clearScreenStartTime = millis();
+        // クリア時のクラッカー演出
         for (int i = 0; i < 200; i++) {
-          particles.add(new Particle(new PVector(random(-width/2, width/2), random(-height/2, height/2)), "confetti"));
+          float randomX = random(-width/2, width/2);
+          float randomY = random(-height/2, height/2);
+          particles.add(new Particle(new PVector(randomX, randomY), "confetti"));
         }
       }
       currentGameState = GameState.STAGE_CLEAR;
@@ -253,7 +257,7 @@ class GameManager {
             float y = height/4 - height/2;
             particles.add(new Particle(new PVector(x, y), "explosion"));
           }
-          
+
           // 右下からの爆発 (50個)
           for (int i = 0; i < 50; i++) {
             float x = width*3/4 - width/2;
