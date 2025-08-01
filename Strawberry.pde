@@ -14,9 +14,7 @@ class Strawberry extends Player {
       hint(DISABLE_DEPTH_MASK);
       // 画像の中心が座標の原点になるように設定
       imageMode(CENTER);
-
-      // 画像を描画する
-      image(playerImage, 0, 0, imageWidth, imageHeight);
+      image(playerImage, 0, 0, this.radius * 2, this.radius * 2);
       
       hint(ENABLE_DEPTH_MASK);
       popMatrix();
@@ -27,7 +25,7 @@ class Strawberry extends Player {
       println("Player image is null. Drawing fallback color.");
       fill(255, 60, 60);
       noStroke();
-      sphere(radius);
+      sphere(this.radius);
       popMatrix();
     }
   }

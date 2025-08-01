@@ -3,7 +3,7 @@ class Apple extends Player {
 
   Apple(PImage img) {
     super();
-    this.radius = 22; 
+    this.radius = 25; 
     this.playerImage = img;
   }
 
@@ -18,7 +18,7 @@ class Apple extends Player {
       imageMode(CENTER);
 
       // 画像を描画する
-      image(playerImage, 0, 0, imageWidth, imageHeight);
+      image(playerImage, 0, 0, this.radius * 2, this.radius * 2);
 
       hint(ENABLE_DEPTH_MASK);
       popMatrix();
@@ -29,7 +29,7 @@ class Apple extends Player {
       println("Player image is null. Drawing fallback color.");
       fill(255, 60, 60);
       noStroke();
-      sphere(radius);
+      sphere(this.radius);
       popMatrix();
     }
   }
