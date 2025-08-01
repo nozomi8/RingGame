@@ -14,7 +14,7 @@ class UI {
     textFont(scoreFont);
     fill(255);
     textAlign(LEFT, TOP);
-    text("Success: " + successCount, 10, 40);
+    text("Success: " + successCount + " / 10", 10, 40);
     
     textSize(36);
     fill(255, 255, 0);
